@@ -1,0 +1,14 @@
+apiVersion: v2
+name: fastgateway
+description: A Helm chart for FastGateway - Kubernetes Gateway API Management Platform
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - gateway
+  - kubernetes
+  - envoy
+  - api-management
+home: https://github.com/zufardhiyaulhaq/fastgateway
+maintainers:
+  - name: zufardhiyaulhaq
