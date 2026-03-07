@@ -1,0 +1,135 @@
+# FastGateway Helm Chart Values
+
+# Global settings
+global:
+  # Image pull secrets for private registries
+  imagePullSecrets: []
+
+# Backend configuration
+backend:
+  image:
+    repository: fastgateway/backend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  service:
+    type: ClusterIP
+    port: 8081
+
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop:
+        - ALL
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+
+# Frontend configuration
+frontend:
+  image:
+    repository: fastgateway/frontend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  service:
+    type: ClusterIP
+    port: 3001
+
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    capabilities:
+      drop:
+        - ALL
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+
+# Database configuration (PostgreSQL)
+# Create a secret with keys: username, password, database
+database:
+  host: ""
+  port: 5432
+  existingSecret: ""
+
+# Application configuration
+config:
+  logLevel: "info"
+  jwtExpiry: "24h"
+  refreshTokenExpiry: "168h"
+  corsAllowedOrigins: "*"
+  adminUsername: "admin"
+  adminEmail: "admin@fastgateway.local"
+
+# Secrets configuration
+# Create a secret with keys: jwt-secret, encryption-key, admin-password
+secrets:
+  existingSecret: ""
+
+# Service account configuration
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# WAF (coraza-proxy-wasm) configuration
+waf:
+  # OCI image for coraza-proxy-wasm
+  image: ghcr.io/corazawaf/coraza-proxy-wasm
+  tag: "0.6.0"
+  # Optional SHA256 for image pinning (leave empty to skip verification)
+  sha256: ""

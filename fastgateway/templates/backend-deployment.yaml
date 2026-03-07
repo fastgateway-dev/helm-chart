@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fastgateway.fullname" . }}-backend
+  labels:
+    {{- include "fastgateway.backend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "fastgateway.backend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- with .Values.backend.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "fastgateway.backend.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- include "fastgateway.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ include "fastgateway.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.backend.securityContext | nindent 8 }}
+      containers:
+        - name: backend
+          securityContext:
+            {{- toYaml .Values.backend.containerSecurityContext | nindent 12 }}
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          env:
+            - name: SERVER_ADDRESS
+              value: ":8081"
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastgateway.fullname" . }}
+                  key: LOG_LEVEL
+            - name: JWT_EXPIRY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastgateway.fullname" . }}
+                  key: JWT_EXPIRY
+            - name: REFRESH_TOKEN_EXPIRY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastgateway.fullname" . }}
+                  key: REFRESH_TOKEN_EXPIRY
+            - name: CORS_ALLOWED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastgateway.fullname" . }}
+                  key: CORS_ALLOWED_ORIGINS
+            - name: ADMIN_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastgateway.fullname" . }}
+                  key: ADMIN_USERNAME
+            - name: ADMIN_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastgateway.fullname" . }}
+                  key: ADMIN_EMAIL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastgateway.secretName" . }}
+                  key: jwt-secret
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastgateway.secretName" . }}
+                  key: encryption-key
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastgateway.secretName" . }}
+                  key: admin-password
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastgateway.databaseSecretName" . }}
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastgateway.databaseSecretName" . }}
+                  key: password
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastgateway.databaseSecretName" . }}
+                  key: database
+            - name: DATABASE_URL
+              value: {{ include "fastgateway.databaseURL" . | quote }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+      {{- with .Values.backend.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.backend.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.backend.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

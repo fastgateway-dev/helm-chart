@@ -1,0 +1,34 @@
+Thank you for installing {{ .Chart.Name }}!
+
+Your release is named {{ .Release.Name }}.
+
+## Prerequisites
+
+Before installing, create the required secrets:
+
+1. Application secret (keys: jwt-secret, encryption-key, admin-password):
+   kubectl create secret generic fastgateway-secrets \
+     --from-literal=jwt-secret=$(openssl rand -base64 32) \
+     --from-literal=encryption-key=$(openssl rand -base64 32) \
+     --from-literal=admin-password=<your-admin-password> \
+     -n {{ .Release.Namespace }}
+
+2. Database secret (keys: username, password, database):
+   kubectl create secret generic fastgateway-database \
+     --from-literal=username=<db-username> \
+     --from-literal=password=<db-password> \
+     --from-literal=database=<db-name> \
+     -n {{ .Release.Namespace }}
+
+## Access
+
+To access FastGateway, port-forward the services:
+
+{{- if .Values.frontend.enabled }}
+kubectl port-forward svc/{{ include "fastgateway.fullname" . }}-frontend {{ .Values.frontend.service.port }}:{{ .Values.frontend.service.port }} -n {{ .Release.Namespace }}
+Open: http://localhost:{{ .Values.frontend.service.port }}
+{{- end }}
+
+Default admin username: {{ .Values.config.adminUsername }}
+
+For more information: {{ .Chart.Home }}
