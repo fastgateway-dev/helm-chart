@@ -42,21 +42,6 @@ spec:
                 configMapKeyRef:
                   name: {{ include "fastgateway.fullname" . }}
                   key: LOG_LEVEL
-            - name: JWT_EXPIRY
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "fastgateway.fullname" . }}
-                  key: JWT_EXPIRY
-            - name: REFRESH_TOKEN_EXPIRY
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "fastgateway.fullname" . }}
-                  key: REFRESH_TOKEN_EXPIRY
-            - name: CORS_ALLOWED_ORIGINS
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "fastgateway.fullname" . }}
-                  key: CORS_ALLOWED_ORIGINS
             - name: ADMIN_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -82,6 +67,10 @@ spec:
                 secretKeyRef:
                   name: {{ include "fastgateway.secretName" . }}
                   key: admin-password
+            - name: DATABASE_HOST
+              value: {{ required "database.host is required" .Values.database.host | quote }}
+            - name: DATABASE_PORT
+              value: {{ .Values.database.port | quote }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
@@ -97,8 +86,22 @@ spec:
                 secretKeyRef:
                   name: {{ include "fastgateway.databaseSecretName" . }}
                   key: database
-            - name: DATABASE_URL
-              value: {{ include "fastgateway.databaseURL" . | quote }}
+            {{- if and .Values.database.sslmode (ne .Values.database.sslmode "disable") }}
+            - name: DATABASE_SSLMODE
+              value: {{ .Values.database.sslmode | quote }}
+            {{- end }}
+            {{- if .Values.database.sslrootcert }}
+            - name: DATABASE_SSLROOTCERT
+              value: {{ .Values.database.sslrootcert | quote }}
+            {{- end }}
+            {{- if .Values.database.sslcert }}
+            - name: DATABASE_SSLCERT
+              value: {{ .Values.database.sslcert | quote }}
+            {{- end }}
+            {{- if .Values.database.sslkey }}
+            - name: DATABASE_SSLKEY
+              value: {{ .Values.database.sslkey | quote }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /health
