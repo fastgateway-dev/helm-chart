@@ -1,0 +1,99 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.description" . }}
+
+## Prerequisites
+
+- Kubernetes 1.24+
+- Helm 3.0+
+- PostgreSQL database
+- Envoy Gateway installed in the cluster
+
+## Installation
+
+### 1. Create Required Secrets
+
+Before installing the chart, create the required secrets in your namespace:
+
+```bash
+# Application secrets
+kubectl create secret generic fastgateway-secrets \
+  --from-literal=jwt-secret=$(openssl rand -base64 32) \
+  --from-literal=encryption-key=$(openssl rand -base64 32) \
+  --from-literal=admin-password=<your-admin-password> \
+  -n <namespace>
+
+# Database credentials
+kubectl create secret generic fastgateway-database \
+  --from-literal=username=<db-username> \
+  --from-literal=password=<db-password> \
+  --from-literal=database=<db-name> \
+  -n <namespace>
+```
+
+### 2. Install the Chart
+
+```bash
+helm install fastgateway ./chart \
+  --set secrets.existingSecret=fastgateway-secrets \
+  --set database.existingSecret=fastgateway-database \
+  --set database.host=<postgres-host> \
+  -n <namespace>
+```
+
+### 3. Access the Application
+
+```bash
+# Port-forward frontend
+kubectl port-forward svc/fastgateway-frontend 3001:3001 -n <namespace>
+
+# Open http://localhost:3001
+```
+
+## Secret Format
+
+### Application Secret
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fastgateway-secrets
+type: Opaque
+stringData:
+  jwt-secret: <min-32-characters>
+  encryption-key: <32-bytes-base64>
+  admin-password: <admin-password>
+```
+
+### Database Secret
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fastgateway-database
+type: Opaque
+stringData:
+  username: <db-username>
+  password: <db-password>
+  database: <db-name>
+```
+
+## RBAC Permissions
+
+The chart creates a ClusterRole with permissions for:
+
+- Gateway API resources (Gateway, HTTPRoute, GRPCRoute, TCPRoute, TLSRoute, GatewayClass, ReferenceGrant)
+- Envoy Gateway resources (EnvoyProxy, SecurityPolicy, Backend, BackendTrafficPolicy, HTTPRouteFilter, ClientTrafficPolicy)
+- Core resources (Namespaces, Services, Secrets, ConfigMaps, Pods, Deployments)
+
+{{ template "chart.valuesSection" . }}
+
+## Uninstall
+
+```bash
+helm uninstall fastgateway -n <namespace>
+```
+
+{{ template "chart.maintainersSection" . }}
