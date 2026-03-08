@@ -105,17 +105,20 @@ database:
   host: ""
   port: 5432
   existingSecret: ""
+  # SSL/TLS configuration
+  sslmode: ""        # disable, require, verify-ca, verify-full (default: disable)
+  sslrootcert: ""    # Path to CA certificate file
+  sslcert: ""        # Path to client certificate file (mTLS)
+  sslkey: ""         # Path to client key file (mTLS)
 
 # Application configuration
 config:
   logLevel: "info"
-  jwtExpiry: "24h"
-  refreshTokenExpiry: "168h"
-  corsAllowedOrigins: "*"
   adminUsername: "admin"
   adminEmail: "admin@fastgateway.local"
 
 # Secrets configuration
+# If empty, secrets will be auto-generated on first install
 # Create a secret with keys: jwt-secret, encryption-key, admin-password
 secrets:
   existingSecret: ""

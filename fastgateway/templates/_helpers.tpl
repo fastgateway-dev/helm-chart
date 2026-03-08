@@ -95,7 +95,11 @@ Create the name of the service account to use
 Create the name of the secret to use
 */}}
 {{- define "fastgateway.secretName" -}}
-{{- required "secrets.existingSecret is required" .Values.secrets.existingSecret }}
+{{- if .Values.secrets.existingSecret }}
+{{- .Values.secrets.existingSecret }}
+{{- else }}
+{{- printf "%s-secrets" (include "fastgateway.fullname" .) }}
+{{- end }}
 {{- end }}
 
 {{/*
@@ -103,13 +107,6 @@ Create the database secret name
 */}}
 {{- define "fastgateway.databaseSecretName" -}}
 {{- required "database.existingSecret is required" .Values.database.existingSecret }}
-{{- end }}
-
-{{/*
-Create the database URL
-*/}}
-{{- define "fastgateway.databaseURL" -}}
-{{- printf "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@%s:%v/$(DATABASE_NAME)?sslmode=disable" (required "database.host is required" .Values.database.host) (int .Values.database.port) }}
 {{- end }}
 
 {{/*
