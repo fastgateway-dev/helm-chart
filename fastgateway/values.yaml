@@ -100,16 +100,42 @@ frontend:
     minAvailable: 1
 
 # Database configuration (PostgreSQL)
-# Create a secret with keys: username, password, database
 database:
-  host: ""
-  port: 5432
-  existingSecret: ""
-  # SSL/TLS configuration
-  sslmode: ""        # disable, require, verify-ca, verify-full (default: disable)
-  sslrootcert: ""    # Path to CA certificate file
-  sslcert: ""        # Path to client certificate file (mTLS)
-  sslkey: ""         # Path to client key file (mTLS)
+  # Type of database: "internal" (deploys PostgreSQL StatefulSet) or "external" (user-provided)
+  type: "internal"
+
+  # Internal PostgreSQL (used when type: internal)
+  # Deploys a single-replica PostgreSQL StatefulSet for testing/development
+  internal:
+    image:
+      repository: postgres
+      tag: "16-alpine"
+      pullPolicy: IfNotPresent
+    username: "fastgateway"
+    password: "fastgateway"
+    database: "fastgateway"
+    storage:
+      size: "1Gi"
+      storageClassName: ""
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  # External PostgreSQL (used when type: external)
+  # Create a secret with keys: username, password, database
+  external:
+    host: ""
+    port: 5432
+    existingSecret: ""
+    # SSL/TLS configuration
+    sslmode: ""        # disable, require, verify-ca, verify-full (default: disable)
+    sslrootcert: ""    # Path to CA certificate file
+    sslcert: ""        # Path to client certificate file (mTLS)
+    sslkey: ""         # Path to client key file (mTLS)
 
 # Application configuration
 config:

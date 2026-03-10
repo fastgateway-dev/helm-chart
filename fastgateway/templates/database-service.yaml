@@ -1,0 +1,20 @@
+{{- if eq .Values.database.type "internal" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fastgateway.fullname" . }}-database
+  labels:
+    {{- include "fastgateway.labels" . | nindent 4 }}
+    app.kubernetes.io/component: database
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+      protocol: TCP
+  selector:
+    {{- include "fastgateway.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: database
+{{- end }}
