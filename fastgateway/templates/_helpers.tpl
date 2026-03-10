@@ -106,7 +106,33 @@ Create the name of the secret to use
 Create the database secret name
 */}}
 {{- define "fastgateway.databaseSecretName" -}}
-{{- required "database.existingSecret is required" .Values.database.existingSecret }}
+{{- if eq .Values.database.type "internal" }}
+{{- printf "%s-database" (include "fastgateway.fullname" .) }}
+{{- else }}
+{{- required "database.external.existingSecret is required when database.type is external" .Values.database.external.existingSecret }}
+{{- end }}
+{{- end }}
+
+{{/*
+Database host
+*/}}
+{{- define "fastgateway.databaseHost" -}}
+{{- if eq .Values.database.type "internal" }}
+{{- printf "%s-database" (include "fastgateway.fullname" .) }}
+{{- else }}
+{{- required "database.external.host is required when database.type is external" .Values.database.external.host }}
+{{- end }}
+{{- end }}
+
+{{/*
+Database port
+*/}}
+{{- define "fastgateway.databasePort" -}}
+{{- if eq .Values.database.type "internal" }}
+{{- 5432 }}
+{{- else }}
+{{- .Values.database.external.port | default 5432 }}
+{{- end }}
 {{- end }}
 
 {{/*

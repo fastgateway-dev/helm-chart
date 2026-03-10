@@ -68,9 +68,9 @@ spec:
                   name: {{ include "fastgateway.secretName" . }}
                   key: admin-password
             - name: DATABASE_HOST
-              value: {{ required "database.host is required" .Values.database.host | quote }}
+              value: {{ include "fastgateway.databaseHost" . | quote }}
             - name: DATABASE_PORT
-              value: {{ .Values.database.port | quote }}
+              value: {{ include "fastgateway.databasePort" . | quote }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
@@ -86,21 +86,23 @@ spec:
                 secretKeyRef:
                   name: {{ include "fastgateway.databaseSecretName" . }}
                   key: database
-            {{- if and .Values.database.sslmode (ne .Values.database.sslmode "disable") }}
+            {{- if eq .Values.database.type "external" }}
+            {{- if and .Values.database.external.sslmode (ne .Values.database.external.sslmode "disable") }}
             - name: DATABASE_SSLMODE
-              value: {{ .Values.database.sslmode | quote }}
+              value: {{ .Values.database.external.sslmode | quote }}
             {{- end }}
-            {{- if .Values.database.sslrootcert }}
+            {{- if .Values.database.external.sslrootcert }}
             - name: DATABASE_SSLROOTCERT
-              value: {{ .Values.database.sslrootcert | quote }}
+              value: {{ .Values.database.external.sslrootcert | quote }}
             {{- end }}
-            {{- if .Values.database.sslcert }}
+            {{- if .Values.database.external.sslcert }}
             - name: DATABASE_SSLCERT
-              value: {{ .Values.database.sslcert | quote }}
+              value: {{ .Values.database.external.sslcert | quote }}
             {{- end }}
-            {{- if .Values.database.sslkey }}
+            {{- if .Values.database.external.sslkey }}
             - name: DATABASE_SSLKEY
-              value: {{ .Values.database.sslkey | quote }}
+              value: {{ .Values.database.external.sslkey | quote }}
+            {{- end }}
             {{- end }}
           livenessProbe:
             httpGet:
