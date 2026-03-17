@@ -34,9 +34,7 @@ spec:
               containerPort: 3001
               protocol: TCP
           env:
-            - name: NEXT_PUBLIC_API_URL
-              value: {{ include "fastgateway.backendURL" . | quote }}
-            - name: API_URL
+            - name: BACKEND_URL
               value: {{ include "fastgateway.backendURL" . | quote }}
           livenessProbe:
             httpGet:
