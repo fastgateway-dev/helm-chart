@@ -102,7 +102,7 @@ The chart creates a ClusterRole with permissions for:
 | backend.containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
 | backend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.image.repository | string | `"fastgateway/backend"` |  |
-| backend.image.tag | string | `"latest"` |  |
+| backend.image.tag | string | `"v0.1.0"` |  |
 | backend.nodeSelector | object | `{}` |  |
 | backend.podAnnotations | object | `{}` |  |
 | backend.podDisruptionBudget.enabled | bool | `false` |  |
@@ -150,7 +150,7 @@ The chart creates a ClusterRole with permissions for:
 | frontend.containerSecurityContext.readOnlyRootFilesystem | bool | `false` |  |
 | frontend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.image.repository | string | `"fastgateway/frontend"` |  |
-| frontend.image.tag | string | `"latest"` |  |
+| frontend.image.tag | string | `"v0.1.0"` |  |
 | frontend.nodeSelector | object | `{}` |  |
 | frontend.podAnnotations | object | `{}` |  |
 | frontend.podDisruptionBudget.enabled | bool | `false` |  |

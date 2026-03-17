@@ -3,10 +3,10 @@ entries:
   fastgateway:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-03-10T23:55:58.129411+07:00"
+    created: "2026-03-17T15:09:46.770313+07:00"
     description: A Helm chart for FastGateway - Kubernetes Gateway API Management
       Platform
-    digest: 781f161775122ce68ab7176c9e8094bcae06d4b5324596876ca5bc9ed7bdb93a
+    digest: 4965aa88eff079f619e99fd5d23ab3338225af9b1e1352c9667672d663340983
     home: https://github.com/zufardhiyaulhaq/fastgateway
     keywords:
     - gateway
@@ -20,4 +20,4 @@ entries:
     urls:
     - fastgateway-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-10T23:55:58.128782+07:00"
+generated: "2026-03-17T15:09:46.769279+07:00"

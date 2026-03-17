@@ -9,7 +9,7 @@ global:
 backend:
   image:
     repository: fastgateway/backend
-    tag: "latest"
+    tag: "v0.1.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -56,7 +56,7 @@ backend:
 frontend:
   image:
     repository: fastgateway/frontend
-    tag: "latest"
+    tag: "v0.1.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
