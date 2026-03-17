@@ -8,7 +8,7 @@ global:
 # Backend configuration
 backend:
   image:
-    repository: fastgateway/backend
+    repository: fastgatewaydev/backend
     tag: "v0.1.0"
     pullPolicy: IfNotPresent
 
@@ -55,7 +55,7 @@ backend:
 # Frontend configuration
 frontend:
   image:
-    repository: fastgateway/frontend
+    repository: fastgatewaydev/frontend
     tag: "v0.1.0"
     pullPolicy: IfNotPresent
 
