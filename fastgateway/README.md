@@ -1,6 +1,29 @@
-# fastgateway
+<div align="center">
+  <img src="https://raw.githubusercontent.com/fastgateway-dev/helm-chart/main/fastgateway/logo.png" alt="FastGateway" width="110">
+
+  <h1>FastGateway</h1>
+
+  <p><strong>Manage the Kubernetes Gateway API without hand-writing YAML.</strong></p>
+
+  <p>
+    <a href="https://github.com/fastgateway-dev/helm-chart"><img alt="Chart Version" src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Ffastgateway-dev%2Fhelm-chart%2Fmain%2Ffastgateway%2FChart.yaml&query=%24.version&label=chart&color=blue"></a>
+    <a href="https://github.com/fastgateway-dev/helm-chart"><img alt="App Version" src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Ffastgateway-dev%2Fhelm-chart%2Fmain%2Ffastgateway%2FChart.yaml&query=%24.appVersion&label=app&color=informational"></a>
+    <a href="https://github.com/fastgateway-dev/backend-v2/pkgs/container/backend-v2"><img alt="Backend Image" src="https://img.shields.io/badge/ghcr.io-backend--v2-informational"></a>
+    <a href="https://github.com/fastgateway-dev/frontend-v2/pkgs/container/frontend-v2"><img alt="Frontend Image" src="https://img.shields.io/badge/ghcr.io-frontend--v2-informational"></a>
+  </p>
+
+  <p>
+    <a href="https://fastgateway.dev">Website</a> ·
+    <a href="https://github.com/fastgateway-dev/backend-v2">Backend</a> ·
+    <a href="https://github.com/fastgateway-dev/frontend-v2">Frontend</a>
+  </p>
+</div>
+
+---
 
 A Helm chart for FastGateway - Kubernetes Gateway API Management Platform
+
+This Helm chart deploys the **FastGateway** platform — a Go backend ([`backend-v2`](https://github.com/fastgateway-dev/backend-v2)) and a Next.js frontend ([`frontend-v2`](https://github.com/fastgateway-dev/frontend-v2)), backed by PostgreSQL — onto Kubernetes.
 
 ## Prerequisites
 
@@ -101,8 +124,8 @@ The chart creates a ClusterRole with permissions for:
 | backend.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | backend.containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
 | backend.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.image.repository | string | `"fastgatewaydev/backend"` |  |
-| backend.image.tag | string | `"v0.1.0"` |  |
+| backend.image.repository | string | `"ghcr.io/fastgateway-dev/backend-v2"` |  |
+| backend.image.tag | string | `"main"` |  |
 | backend.nodeSelector | object | `{}` |  |
 | backend.podAnnotations | object | `{}` |  |
 | backend.podDisruptionBudget.enabled | bool | `false` |  |
@@ -149,8 +172,8 @@ The chart creates a ClusterRole with permissions for:
 | frontend.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | frontend.containerSecurityContext.readOnlyRootFilesystem | bool | `false` |  |
 | frontend.image.pullPolicy | string | `"IfNotPresent"` |  |
-| frontend.image.repository | string | `"fastgatewaydev/frontend"` |  |
-| frontend.image.tag | string | `"v0.1.0"` |  |
+| frontend.image.repository | string | `"ghcr.io/fastgateway-dev/frontend-v2"` |  |
+| frontend.image.tag | string | `"main"` |  |
 | frontend.nodeSelector | object | `{}` |  |
 | frontend.podAnnotations | object | `{}` |  |
 | frontend.podDisruptionBudget.enabled | bool | `false` |  |

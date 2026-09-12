@@ -9,6 +9,11 @@ keywords:
   - kubernetes
   - envoy
   - api-management
-home: https://github.com/zufardhiyaulhaq/fastgateway
+home: https://fastgateway.dev
+icon: https://raw.githubusercontent.com/fastgateway-dev/helm-chart/main/fastgateway/logo.png
+sources:
+  - https://github.com/fastgateway-dev/helm-chart
+  - https://github.com/fastgateway-dev/backend-v2
+  - https://github.com/fastgateway-dev/frontend-v2
 maintainers:
   - name: zufardhiyaulhaq

@@ -1,6 +1,29 @@
-{{ template "chart.header" . }}
+<div align="center">
+  <img src="https://raw.githubusercontent.com/fastgateway-dev/helm-chart/main/fastgateway/logo.png" alt="FastGateway" width="110">
+
+  <h1>FastGateway</h1>
+
+  <p><strong>Manage the Kubernetes Gateway API without hand-writing YAML.</strong></p>
+
+  <p>
+    <a href="https://github.com/fastgateway-dev/helm-chart"><img alt="Chart Version" src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Ffastgateway-dev%2Fhelm-chart%2Fmain%2Ffastgateway%2FChart.yaml&query=%24.version&label=chart&color=blue"></a>
+    <a href="https://github.com/fastgateway-dev/helm-chart"><img alt="App Version" src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Ffastgateway-dev%2Fhelm-chart%2Fmain%2Ffastgateway%2FChart.yaml&query=%24.appVersion&label=app&color=informational"></a>
+    <a href="https://github.com/fastgateway-dev/backend-v2/pkgs/container/backend-v2"><img alt="Backend Image" src="https://img.shields.io/badge/ghcr.io-backend--v2-informational"></a>
+    <a href="https://github.com/fastgateway-dev/frontend-v2/pkgs/container/frontend-v2"><img alt="Frontend Image" src="https://img.shields.io/badge/ghcr.io-frontend--v2-informational"></a>
+  </p>
+
+  <p>
+    <a href="https://fastgateway.dev">Website</a> ·
+    <a href="https://github.com/fastgateway-dev/backend-v2">Backend</a> ·
+    <a href="https://github.com/fastgateway-dev/frontend-v2">Frontend</a>
+  </p>
+</div>
+
+---
 
 {{ template "chart.description" . }}
+
+This Helm chart deploys the **FastGateway** platform — a Go backend ([`backend-v2`](https://github.com/fastgateway-dev/backend-v2)) and a Next.js frontend ([`frontend-v2`](https://github.com/fastgateway-dev/frontend-v2)), backed by PostgreSQL — onto Kubernetes.
 
 ## Prerequisites
 
