@@ -90,6 +90,10 @@ rules:
   - apiGroups: ["gateway.envoyproxy.io"]
     resources: ["envoyextensionpolicies"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # cert-manager - Issuers, ClusterIssuers, Certificates (certificate management)
+  - apiGroups: ["cert-manager.io"]
+    resources: ["issuers", "clusterissuers", "certificates"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

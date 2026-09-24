@@ -108,7 +108,8 @@ stringData:
 The chart creates a ClusterRole with permissions for:
 
 - Gateway API resources (Gateway, HTTPRoute, GRPCRoute, TCPRoute, TLSRoute, GatewayClass, ReferenceGrant)
-- Envoy Gateway resources (EnvoyProxy, SecurityPolicy, Backend, BackendTrafficPolicy, HTTPRouteFilter, ClientTrafficPolicy)
+- Envoy Gateway resources (EnvoyProxy, SecurityPolicy, Backend, BackendTrafficPolicy, HTTPRouteFilter, ClientTrafficPolicy, EnvoyExtensionPolicy)
+- cert-manager resources (Issuer, ClusterIssuer, Certificate) for certificate management
 - Core resources (Namespaces, Services, Secrets, ConfigMaps, Pods, Deployments)
 
 ## Values
@@ -125,7 +126,7 @@ The chart creates a ClusterRole with permissions for:
 | backend.containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
 | backend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.image.repository | string | `"ghcr.io/fastgateway-dev/backend-v2"` |  |
-| backend.image.tag | string | `"main"` |  |
+| backend.image.tag | string | `"v0.1.0"` |  |
 | backend.nodeSelector | object | `{}` |  |
 | backend.podAnnotations | object | `{}` |  |
 | backend.podDisruptionBudget.enabled | bool | `false` |  |
@@ -173,7 +174,7 @@ The chart creates a ClusterRole with permissions for:
 | frontend.containerSecurityContext.readOnlyRootFilesystem | bool | `false` |  |
 | frontend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.image.repository | string | `"ghcr.io/fastgateway-dev/frontend-v2"` |  |
-| frontend.image.tag | string | `"main"` |  |
+| frontend.image.tag | string | `"v0.1.0"` |  |
 | frontend.nodeSelector | object | `{}` |  |
 | frontend.podAnnotations | object | `{}` |  |
 | frontend.podDisruptionBudget.enabled | bool | `false` |  |

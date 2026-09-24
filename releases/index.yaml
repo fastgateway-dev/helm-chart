@@ -2,8 +2,32 @@ apiVersion: v1
 entries:
   fastgateway:
   - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2026-09-24T20:29:58.871551+07:00"
+    description: A Helm chart for FastGateway - Kubernetes Gateway API Management
+      Platform
+    digest: 8b5811b98650848938437f3d15a046d68555d42c7675c1a41500dcf8e381610a
+    home: https://fastgateway.dev
+    icon: https://raw.githubusercontent.com/fastgateway-dev/helm-chart/main/fastgateway/logo.png
+    keywords:
+    - gateway
+    - kubernetes
+    - envoy
+    - api-management
+    maintainers:
+    - name: zufardhiyaulhaq
+    name: fastgateway
+    sources:
+    - https://github.com/fastgateway-dev/helm-chart
+    - https://github.com/fastgateway-dev/backend-v2
+    - https://github.com/fastgateway-dev/frontend-v2
+    type: application
+    urls:
+    - fastgateway-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-09-12T23:23:38.073345+07:00"
+    created: "2026-09-24T20:29:58.870427+07:00"
     description: A Helm chart for FastGateway - Kubernetes Gateway API Management
       Platform
     digest: 0d3f24f7d77502d5181a232c2a19f1b194b2fe73e661855fe8a3da9824920dc9
@@ -25,4 +49,4 @@ entries:
     urls:
     - fastgateway-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-12T23:23:38.072407+07:00"
+generated: "2026-09-24T20:29:58.866622+07:00"
