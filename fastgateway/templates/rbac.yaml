@@ -90,9 +90,10 @@ rules:
   - apiGroups: ["gateway.envoyproxy.io"]
     resources: ["envoyextensionpolicies"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-  # cert-manager - Issuers, ClusterIssuers, Certificates (certificate management)
+  # cert-manager - Issuers, Certificates, CertificateRequests (certificate management)
+  # Namespaced Issuers are used (in fastgateway-system); no cluster-scoped ClusterIssuers.
   - apiGroups: ["cert-manager.io"]
-    resources: ["issuers", "clusterissuers", "certificates"]
+    resources: ["issuers", "certificates", "certificaterequests"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1

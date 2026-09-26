@@ -109,7 +109,7 @@ The chart creates a ClusterRole with permissions for:
 
 - Gateway API resources (Gateway, HTTPRoute, GRPCRoute, TCPRoute, TLSRoute, GatewayClass, ReferenceGrant)
 - Envoy Gateway resources (EnvoyProxy, SecurityPolicy, Backend, BackendTrafficPolicy, HTTPRouteFilter, ClientTrafficPolicy, EnvoyExtensionPolicy)
-- cert-manager resources (Issuer, ClusterIssuer, Certificate) for certificate management
+- cert-manager resources (Issuer, Certificate, CertificateRequest) for certificate management
 - Core resources (Namespaces, Services, Secrets, ConfigMaps, Pods, Deployments)
 
 {{ template "chart.valuesSection" . }}
