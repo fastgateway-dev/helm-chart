@@ -14,10 +14,13 @@ rules:
   - apiGroups: [""]
     resources: ["services", "endpoints"]
     verbs: ["get", "list"]
-  # Secrets (for TLS certificates)
+  # Secrets: managed-cert TLS secrets distributed to tenant/gateway
+  # namespaces, BYO TLS secrets, and per-client API-key secrets. The backend
+  # creates/updates/deletes these (e.g. cluster.CreateOrUpdateTLSSecret,
+  # CreateAPIKeySecret), so get/list alone is not enough.
   - apiGroups: [""]
     resources: ["secrets"]
-    verbs: ["get", "list"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
   # ConfigMaps (for Direct Response body storage)
   - apiGroups: [""]
     resources: ["configmaps"]
