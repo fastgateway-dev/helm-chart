@@ -2,8 +2,8 @@ apiVersion: v2
 name: fastgateway
 description: A Helm chart for FastGateway - Kubernetes Gateway API Management Platform
 type: application
-version: 1.0.2
-appVersion: "0.1.1"
+version: 1.0.3
+appVersion: "0.1.2"
 keywords:
   - gateway
   - kubernetes
