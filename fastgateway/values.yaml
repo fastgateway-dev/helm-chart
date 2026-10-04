@@ -162,3 +162,8 @@ waf:
   tag: "0.6.0"
   # Optional SHA256 for image pinning (leave empty to skip verification)
   sha256: ""
+
+# DNS management (external-dns integration). Enable only if external-dns is
+# installed and you want FastGateway to manage domain DNS records.
+dns:
+  enabled: false

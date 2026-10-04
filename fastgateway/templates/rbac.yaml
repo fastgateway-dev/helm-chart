@@ -98,6 +98,15 @@ rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["issuers", "certificates", "certificaterequests"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  {{- if .Values.dns.enabled }}
+  # DNS management: external-dns DNSEndpoint CRs (gated on dns.enabled)
+  - apiGroups: ["externaldns.k8s.io"]
+    resources: ["dnsendpoints"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["externaldns.k8s.io"]
+    resources: ["dnsendpoints/status"]
+    verbs: ["get"]
+  {{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

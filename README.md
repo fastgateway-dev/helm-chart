@@ -164,6 +164,7 @@ The chart creates a ClusterRole with permissions for:
 | database.internal.storage.storageClassName | string | `""` |  |
 | database.internal.username | string | `"fastgateway"` |  |
 | database.type | string | `"internal"` |  |
+| dns.enabled | bool | `false` |  |
 | frontend.affinity | object | `{}` |  |
 | frontend.autoscaling.enabled | bool | `false` |  |
 | frontend.autoscaling.maxReplicas | int | `5` |  |
