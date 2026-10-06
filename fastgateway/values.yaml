@@ -9,7 +9,7 @@ global:
 backend:
   image:
     repository: ghcr.io/fastgateway-dev/backend-v2
-    tag: "v0.2.0"
+    tag: "v0.3.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -56,7 +56,7 @@ backend:
 frontend:
   image:
     repository: ghcr.io/fastgateway-dev/frontend-v2
-    tag: "v0.2.0"
+    tag: "v0.3.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
