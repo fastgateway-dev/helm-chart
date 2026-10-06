@@ -33,6 +33,11 @@ rules:
   - apiGroups: ["apps"]
     resources: ["deployments"]
     verbs: ["get", "list"]
+  # CustomResourceDefinitions (cluster-scoped; for detecting the installed Gateway
+  # API version from the gateway.networking.k8s.io/bundle-version annotation)
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["get", "list"]
   # Gateway API - GatewayClass
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["gatewayclasses"]
