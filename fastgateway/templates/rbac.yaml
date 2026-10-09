@@ -58,6 +58,10 @@ rules:
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["tcproutes"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # Gateway API - UDPRoute (L4 streams)
+  - apiGroups: ["gateway.networking.k8s.io"]
+    resources: ["udproutes"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
   # Gateway API - TLSRoute
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["tlsroutes"]
