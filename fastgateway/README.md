@@ -175,7 +175,7 @@ The chart creates a ClusterRole with permissions for:
 | frontend.containerSecurityContext.readOnlyRootFilesystem | bool | `false` |  |
 | frontend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.image.repository | string | `"ghcr.io/fastgateway-dev/frontend-v2"` |  |
-| frontend.image.tag | string | `"v0.3.0"` |  |
+| frontend.image.tag | string | `"v0.4.0"` |  |
 | frontend.nodeSelector | object | `{}` |  |
 | frontend.podAnnotations | object | `{}` |  |
 | frontend.podDisruptionBudget.enabled | bool | `false` |  |
